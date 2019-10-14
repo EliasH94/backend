@@ -5,13 +5,13 @@ $productName = [
     "Redbull", 
     "Monster", 
     "Loka", 
-    "Cola", 
+    "Coca Cola", 
     "Fanta", 
     "Sprite", 
-    "7Up", 
+    "7-Up", 
     "Trocadero", 
     "Vatten", 
-    "Grappo"
+    "Mountain Dew"
 ];
 
 $productPrice = [
@@ -19,62 +19,61 @@ $productPrice = [
 ];
 
 $productInfo = [
-    "Energi dricka 250ml",
-    "Energi dricka 450ml",
-    "Kolsyrad vatten 0,5l",
-    "Läsk cola-smak 330ml",
-    "Läsk apelsin-smak 330ml",
-    "Läsk citron-smak 330ml",
-    "Läsk citron-smak 330ml",
-    "Läsk passionfrukt-smak 330ml",
-    "Vatten flaska 0,5ml",
-    "Läsk grapefrukt 0,5",
+    "Energidryck. 250ml",
+    "Energidryck. 450ml",
+    "Kolsyrat vatten. 0,5l",
+    "Läsk med smak av cola. 330ml",
+    "Läsk med smak av apelsin. 330ml",
+    "Läsk med smak av citron. 330ml",
+    "Läsk med smak av citron. 330ml",
+    "Läsk med smak av apelsin och äpple.  330ml",
+    "Mineralvatten. 0,5l",
+    "Läsk med smak av citrus. 0,5",
 ];
 
 $productImage = [
-    "http://flummig.eu/api/backend/bild.jpg",
-    "http://flummig.eu/api/backend/bild.jpg",
-    "http://flummig.eu/api/backend/bild.jpg",
-    "http://flummig.eu/api/backend/bild.jpg",
-    "http://flummig.eu/api/backend/bild.jpg",
-    "http://flummig.eu/api/backend/bild.jpg",
-    "http://flummig.eu/api/backend/bild.jpg",
-    "http://flummig.eu/api/backend/bild.jpg",
-    "http://flummig.eu/api/backend/bild.jpg",
-    "http://flummig.eu/api/backend/bild.jpg",
+    "http://flummig.eu/api/backend/RedBull.jpg",
+    "http://flummig.eu/api/backend/Monster.jpg",
+    "http://flummig.eu/api/backend/Loka.jpg",
+    "http://flummig.eu/api/backend/CocaCola.jpg",
+    "http://flummig.eu/api/backend/Fanta.jpg",
+    "http://flummig.eu/api/backend/Sprite.jpg",
+    "http://flummig.eu/api/backend/7-Up.jpg",
+    "http://flummig.eu/api/backend/Trocadero.jpg",
+    "http://flummig.eu/api/backend/Vatten.jpg",
+    "http://flummig.eu/api/backend/MountainDew.jpg",
 ];
 
 
-$limit = 10;
+$limit = count($productName);
 if(isset($_GET["limit"])){
 $limit = $_GET["limit"];
 }
 
-if($limit < 1 or $limit > 10){
-    echo "Error";
+if($limit < 1 or $limit > count($productName)){
+    echo '{ "error":"Får ej vara mindre än 1 och mer än ' . count($productName) . '"}';
 } else {
+    
+    $product = [];
 
-$product = [];
+    for($i=0; $i<$limit; $i++){
 
-for($i=0; $i<$limit; $i++){
+        $storage = rand(0,50);
+        
+        $info = array(
+            "Product" => $productName[$i],
+            "Price" => $productPrice[$i],
+            "Info" => $productInfo[$i],
+            "Image" => $productImage[$i],
+            "Amount" => $storage
+        );
+        $product[]=$info;
+        }
 
-$storage = rand(0,50);
+        $json =json_encode($product);
 
-$info = array(
-    "Product" => $productName[$i],
-    "Price" => $productPrice[$i],
-    "Info" => $productInfo[$i],
-    "Image" => $productImage[$i],
-    "Amount" => $storage
-);
-$product[]=$info;
-}
+            echo $json;
 
-$json =json_encode($product);
 
-    echo $json;
-
-//print_r($productPrice);
-//echo $productPrice["Produkt 1"] . "kr";
-}
+    }
 ?>
