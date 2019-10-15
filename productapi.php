@@ -47,33 +47,37 @@ $productImage = [
 
 $limit = count($productName);
 if(isset($_GET["limit"])){
-$limit = $_GET["limit"];
+    $limit = htmlspecialchars($_GET["limit"]);
 }
 
-if($limit < 1 or $limit > count($productName)){
-    echo '{ "error":"Får ej vara mindre än 1 och mer än ' . count($productName) . '"}';
+if (!filter_var($limit, FILTER_VALIDATE_INT) === true) {
+    echo '{ "error":"Måste innehålla endast siffror"}';
 } else {
-    
-    $product = [];
+    if($limit < 1 or $limit > count($productName)){
+        echo '{ "error":"Får ej vara mindre än 1 och mer än ' . count($productName) . '"}';
+    } else {
 
-    for($i=0; $i<$limit; $i++){
+        $product = [];
 
-        $storage = rand(0,50);
-        
-        $info = array(
-            "Product" => $productName[$i],
-            "Price" => $productPrice[$i],
-            "Info" => $productInfo[$i],
-            "Image" => $productImage[$i],
-            "Amount" => $storage
-        );
-        $product[]=$info;
-        }
+        for($i=0; $i<$limit; $i++){
 
-        $json =json_encode($product);
+            $storage = rand(0,50);
 
+            $info = array(
+                "Product" => $productName[$i],
+                "Price" => $productPrice[$i],
+                "Info" => $productInfo[$i],
+                "Image" => $productImage[$i],
+                "Amount" => $storage
+            );
+
+            $product[]=$info;
+            
+            }
+            
+            $json =json_encode($product);
             echo $json;
-
-
-    }
+        
+        }
+}
 ?>
