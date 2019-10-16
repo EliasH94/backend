@@ -1,6 +1,8 @@
 <?php
+//Tillåter filen att läsas som json.
 header("Content-Type: application/json; charset=UTF-8");
 
+//Arrayer för produkterna.
 $productName = [
     "Redbull", 
     "Monster", 
@@ -44,12 +46,14 @@ $productImage = [
     "http://flummig.eu/api/backend/MountainDew.jpg",
 ];
 
-
+//Läser in antal produktnamn i $limit.
 $limit = count($productName);
 if(isset($_GET["limit"])){
+    //Ändrar specialtecken man har skrivit i GET-requesten till HTML-element.
     $limit = htmlspecialchars($_GET["limit"]);
 }
 
+//Visar felmeddelande om det inte är endast siffror och ifall de är mindre än 1 och högre än antal produktnamn.
 if (!filter_var($limit, FILTER_VALIDATE_INT) === true) {
     echo '{ "error":"Måste innehålla endast siffror"}';
 } else {
@@ -58,7 +62,7 @@ if (!filter_var($limit, FILTER_VALIDATE_INT) === true) {
     } else {
 
         $product = [];
-
+        //Lägger till en kategori från tidigare arrayer i en ny array
         for($i=0; $i<$limit; $i++){
 
             $storage = rand(0,50);
@@ -70,11 +74,11 @@ if (!filter_var($limit, FILTER_VALIDATE_INT) === true) {
                 "Image" => $productImage[$i],
                 "Amount" => $storage
             );
-
+            //Adderar $info arrayen i en annan array.    
             $product[]=$info;
             
             }
-            
+            //Konverterar $product till json.
             $json =json_encode($product);
             echo $json;
         
