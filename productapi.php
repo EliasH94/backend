@@ -4,7 +4,7 @@ header("Content-Type: application/json; charset=UTF-8");
 
 //Arrayer för produkterna.
 $productName = [
-    "Redbull", 
+    "Red Bull", 
     "Monster", 
     "Loka", 
     "Coca Cola", 
@@ -12,7 +12,7 @@ $productName = [
     "Sprite", 
     "7-Up", 
     "Trocadero", 
-    "Vatten", 
+    "Imsdal", 
     "Mountain Dew"
 ];
 
@@ -30,7 +30,7 @@ $productInfo = [
     "Läsk med smak av citron. 330ml",
     "Läsk med smak av apelsin och äpple.  330ml",
     "Mineralvatten. 0,5l",
-    "Läsk med smak av citrus. 0,5",
+    "Läsk med smak av citrus. 0,5l",
 ];
 
 $productImage = [
